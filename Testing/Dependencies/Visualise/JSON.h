@@ -1,7 +1,7 @@
 #pragma once
 #include "json.hpp"
 
-namespace io::json
+namespace json_io
 {
     inline nlohmann::json load(const std::filesystem::path& path)
     {

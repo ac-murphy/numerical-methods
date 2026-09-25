@@ -26,12 +26,12 @@ public:
     {
         std::filesystem::path dir = _output_dir/std::to_string(_op_counter++);
         std::filesystem::create_directory(dir);
-        io::bin::write_T(dir/"x_values.bin", x_values);
-        io::bin::write_T(dir/"y_values.bin", y_values);
+        binary_io::write_T(dir/"x_values.bin", x_values);
+        binary_io::write_T(dir/"y_values.bin", y_values);
 
         nlohmann::json metadata;
         metadata["type"] = "graph_1d";
-        io::json::write(dir/"metadata.json", metadata);
+        json_io::write(dir/"metadata.json", metadata);
     }
 
     void graph_1d_anim(const std::vector<float>& t_values,
@@ -40,18 +40,18 @@ public:
     {
         std::filesystem::path dir = _output_dir/std::to_string(_op_counter++);
         std::filesystem::create_directory(dir);
-        io::bin::write_T(dir/"t_values.bin", t_values);
-        io::bin::write_T(dir/"x_values.bin", x_values);
+        binary_io::write_T(dir/"t_values.bin", t_values);
+        binary_io::write_T(dir/"x_values.bin", x_values);
 
         std::vector<float> u_values_flattened;
         for (const auto& row : u_values)
             u_values_flattened.insert(u_values_flattened.end(), row.begin(), row.end());
 
-        io::bin::write_T(dir/"u_values.bin", u_values_flattened);
+        binary_io::write_T(dir/"u_values.bin", u_values_flattened);
 
         nlohmann::json metadata;
         metadata["type"] = "graph_1d_anim";
-        io::json::write(dir/"metadata.json", metadata);
+        json_io::write(dir/"metadata.json", metadata);
     }
 
     void run() const

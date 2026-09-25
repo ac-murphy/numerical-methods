@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
-namespace io::bin
+namespace binary_io
 {
     template <typename T>
     requires (!std::same_as<T, bool>)
-    std::vector<T> read_T(const std::filesystem::path& path)
+    std::vector<T> read(const std::filesystem::path& path)
     {
         if (!std::filesystem::is_regular_file(path))
         {
@@ -39,7 +39,7 @@ namespace io::bin
 
     inline std::vector<bool> read_bool(const std::filesystem::path& path)
     {
-        const std::vector<uint8_t> unpacked = bin::read_T<uint8_t>(path);
+        const std::vector<uint8_t> unpacked = binary_io::read<uint8_t>(path);
         std::vector<bool> packed(unpacked.size());
         for (auto i = 0; i < unpacked.size(); ++i)
             packed[i] = unpacked[i] == 1;
